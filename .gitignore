@@ -6,6 +6,8 @@
 *.exe
 *.o
 *.so
+*.log
+*.xml
 
 # Packages #
 ############
@@ -25,5 +27,7 @@
 *.fq
 
 # Whole Directories #
-/Data
+/Data/Hash_Results
 /Programs
+
+Data/Process_RadTags_Output/Opt1_output.txt
