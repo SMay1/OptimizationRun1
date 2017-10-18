@@ -3,8 +3,8 @@ use strict;
 
 my$sampleFile=$ARGV[0];
 
-my$bowtie2build_input="finalLoci_refGT_trimmed.fa";
-my$bowtie2build_output="OtsRefTrim";
+my$bowtie2build_input="FinalAmplicons.fa";
+my$bowtie2build_output="GATKRefTrim";
 
 my($bowtie2build_inputFile,$bowtie2build_inputExt)=split '\.', $bowtie2build_input, 2;
 #load sample names from file
