@@ -1,0 +1,84 @@
+bowtie2-build 233_Amplicons.fa GATKRefTrim
+Building a SMALL index
+bwa index -p GATKRefTrim 233_Amplicons.fa
+samtools faidx 233_Amplicons.fa
+java -jar /mnt/hgfs/Ubuntu_Shared/OptimizationRun1/Programs/Picard/Picard-2.8.2/picard-2.8.2.jar CreateSequenceDictionary REFERENCE=233_Amplicons.fa OUTPUT=233_Amplicons.dict
+[Thu Oct 19 13:04:50 PDT 2017] picard.sam.CreateSequenceDictionary REFERENCE=233_Amplicons.fa OUTPUT=233_Amplicons.dict    TRUNCATE_NAMES_AT_WHITESPACE=true NUM_SEQUENCES=2147483647 VERBOSITY=INFO QUIET=false VALIDATION_STRINGENCY=STRICT COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_INDEX=false CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json
+[Thu Oct 19 13:04:50 PDT 2017] Executing as smay1@ubuntu on Linux 4.8.0-59-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_131-b11; Picard version: 2.8.2-SNAPSHOT
+[Thu Oct 19 13:04:50 PDT 2017] picard.sam.CreateSequenceDictionary done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=331874304
+bowtie2 -x GATKRefTrim --local --rg-id S_2010AC19003_S9_L001_R1_001 --rg SM:2010AC19003_S9_L001_R1_001 --rg PL:ILLUMINA --rg DS:HiSeq4000 -U 2010AC19003_S9_L001_R1_001.fastq -S 2010AC19003_S9_L001_R1_001.sam 2> 2010AC19003_S9_L001_R1_001.txt
+java -jar /mnt/hgfs/Ubuntu_Shared/OptimizationRun1/Programs/Picard/Picard-2.8.2/picard-2.8.2.jar SortSam INPUT=2010AC19003_S9_L001_R1_001.sam OUTPUT=2010AC19003_S9_L001_R1_001.bam SORT_ORDER=coordinate VALIDATION_STRINGENCY=LENIENT CREATE_INDEX=true
+[Thu Oct 19 13:04:50 PDT 2017] picard.sam.SortSam INPUT=2010AC19003_S9_L001_R1_001.sam OUTPUT=2010AC19003_S9_L001_R1_001.bam SORT_ORDER=coordinate VALIDATION_STRINGENCY=LENIENT CREATE_INDEX=true    VERBOSITY=INFO QUIET=false COMPRESSION_LEVEL=5 MAX_RECORDS_IN_RAM=500000 CREATE_MD5_FILE=false GA4GH_CLIENT_SECRETS=client_secrets.json
+[Thu Oct 19 13:04:50 PDT 2017] Executing as smay1@ubuntu on Linux 4.8.0-59-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_131-b11; Picard version: 2.8.2-SNAPSHOT
+Ignoring SAM validation error: ERROR: Error parsing SAM header. @SQ line missing LN tag. Line:
+@SQ	SN:9094_x1_FemaleL
+INFO	2017-10-19 13:04:51	SortSam	Finished reading inputs, merging and writing to output now.
+[Thu Oct 19 13:04:51 PDT 2017] picard.sam.SortSam done. Elapsed time: 0.00 minutes.
+Runtime.totalMemory()=331874304
+java -jar /mnt/hgfs/Ubuntu_Shared/OptimizationRun1/Programs/GATK/GenomeAnalysisTK-3.7/GenomeAnalysisTK.jar -T RealignerTargetCreator -I 2010AC19003_S9_L001_R1_001.bam -R 233_Amplicons.fa -o  2010AC19003_S9_L001_R1_001.bam.list
+INFO  13:04:52,877 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  13:04:52,879 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.7-0-gcfedb67, Compiled 2016/12/12 11:21:18 
+INFO  13:04:52,880 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  13:04:52,880 HelpFormatter - For support and documentation go to https://software.broadinstitute.org/gatk 
+INFO  13:04:52,880 HelpFormatter - [Thu Oct 19 13:04:52 PDT 2017] Executing on Linux 4.8.0-59-generic amd64 
+INFO  13:04:52,881 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_131-b11 
+INFO  13:04:52,884 HelpFormatter - Program Args: -T RealignerTargetCreator -I 2010AC19003_S9_L001_R1_001.bam -R 233_Amplicons.fa -o 2010AC19003_S9_L001_R1_001.bam.list 
+INFO  13:04:52,887 HelpFormatter - Executing as smay1@ubuntu on Linux 4.8.0-59-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_131-b11. 
+INFO  13:04:52,887 HelpFormatter - Date/Time: 2017/10/19 13:04:52 
+INFO  13:04:52,887 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  13:04:52,887 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  13:04:52,893 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  13:04:53,044 GenomeAnalysisEngine - Downsampling Settings: Method: BY_SAMPLE, Target Coverage: 1000 
+INFO  13:04:53,050 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  13:04:53,086 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.04 
+##### ERROR ------------------------------------------------------------------------------------------
+##### ERROR A USER ERROR has occurred (version 3.7-0-gcfedb67): 
+##### ERROR
+##### ERROR This means that one or more arguments or inputs in your command are incorrect.
+##### ERROR The error message below tells you what is the problem.
+##### ERROR
+##### ERROR If the problem is an invalid argument, please check the online documentation guide
+##### ERROR (or rerun your command with --help) to view allowable command-line arguments for this tool.
+##### ERROR
+##### ERROR Visit our website and forum for extensive documentation and answers to 
+##### ERROR commonly asked questions https://software.broadinstitute.org/gatk
+##### ERROR
+##### ERROR Please do NOT post this error to the GATK forum unless you have really tried to fix it yourself.
+##### ERROR
+##### ERROR MESSAGE: SAM/BAM/CRAM file 2010AC19003_S9_L001_R1_001.bam is malformed. Please see https://software.broadinstitute.org/gatk/documentation/article?id=1317for more information. Error details: SAM file doesn't have any read groups defined in the header.  The GATK no longer supports SAM files without read groups
+##### ERROR ------------------------------------------------------------------------------------------
+java -jar /mnt/hgfs/Ubuntu_Shared/OptimizationRun1/Programs/GATK/GenomeAnalysisTK-3.7/GenomeAnalysisTK.jar -T IndelRealigner -R 233_Amplicons.fa -I 2010AC19003_S9_L001_R1_001.bam -targetIntervals 2010AC19003_S9_L001_R1_001.bam.list -o 2010AC19003_S9_L001_R1_001.realigned.bam
+INFO  13:04:54,916 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  13:04:54,919 HelpFormatter - The Genome Analysis Toolkit (GATK) v3.7-0-gcfedb67, Compiled 2016/12/12 11:21:18 
+INFO  13:04:54,919 HelpFormatter - Copyright (c) 2010-2016 The Broad Institute 
+INFO  13:04:54,919 HelpFormatter - For support and documentation go to https://software.broadinstitute.org/gatk 
+INFO  13:04:54,919 HelpFormatter - [Thu Oct 19 13:04:54 PDT 2017] Executing on Linux 4.8.0-59-generic amd64 
+INFO  13:04:54,919 HelpFormatter - Java HotSpot(TM) 64-Bit Server VM 1.8.0_131-b11 
+INFO  13:04:54,923 HelpFormatter - Program Args: -T IndelRealigner -R 233_Amplicons.fa -I 2010AC19003_S9_L001_R1_001.bam -targetIntervals 2010AC19003_S9_L001_R1_001.bam.list -o 2010AC19003_S9_L001_R1_001.realigned.bam 
+INFO  13:04:54,926 HelpFormatter - Executing as smay1@ubuntu on Linux 4.8.0-59-generic amd64; Java HotSpot(TM) 64-Bit Server VM 1.8.0_131-b11. 
+INFO  13:04:54,926 HelpFormatter - Date/Time: 2017/10/19 13:04:54 
+INFO  13:04:54,926 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  13:04:54,927 HelpFormatter - -------------------------------------------------------------------------------- 
+INFO  13:04:55,034 GenomeAnalysisEngine - Strictness is SILENT 
+INFO  13:04:55,139 GenomeAnalysisEngine - Downsampling Settings: No downsampling 
+INFO  13:04:55,145 SAMDataSource$SAMReaders - Initializing SAMRecords in serial 
+INFO  13:04:55,190 SAMDataSource$SAMReaders - Done initializing BAM readers: total time 0.04 
+##### ERROR ------------------------------------------------------------------------------------------
+##### ERROR A USER ERROR has occurred (version 3.7-0-gcfedb67): 
+##### ERROR
+##### ERROR This means that one or more arguments or inputs in your command are incorrect.
+##### ERROR The error message below tells you what is the problem.
+##### ERROR
+##### ERROR If the problem is an invalid argument, please check the online documentation guide
+##### ERROR (or rerun your command with --help) to view allowable command-line arguments for this tool.
+##### ERROR
+##### ERROR Visit our website and forum for extensive documentation and answers to 
+##### ERROR commonly asked questions https://software.broadinstitute.org/gatk
+##### ERROR
+##### ERROR Please do NOT post this error to the GATK forum unless you have really tried to fix it yourself.
+##### ERROR
+##### ERROR MESSAGE: SAM/BAM/CRAM file 2010AC19003_S9_L001_R1_001.bam is malformed. Please see https://software.broadinstitute.org/gatk/documentation/article?id=1317for more information. Error details: SAM file doesn't have any read groups defined in the header.  The GATK no longer supports SAM files without read groups
+##### ERROR ------------------------------------------------------------------------------------------
+bowtie2 -x GATKRefTrim --local --rg-id S_2010AC19003_S9_L001_R2_001 --rg SM:2010AC19003_S9_L001_R2_001 --rg PL:ILLUMINA --rg DS:HiSeq4000 -U 2010AC19003_S9_L001_R2_001.fastq -S 2010AC19003_S9_L001_R2_001.sam 2> 2010AC19003_S9_L001_R2_001.txt
+^C

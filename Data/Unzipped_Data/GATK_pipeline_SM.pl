@@ -3,7 +3,7 @@ use strict;
 
 my$sampleFile=$ARGV[0];
 
-my$bowtie2build_input="FinalAmplicons.fa";
+my$bowtie2build_input="233_Amplicons.fa";
 my$bowtie2build_output="GATKRefTrim";
 
 my($bowtie2build_inputFile,$bowtie2build_inputExt)=split '\.', $bowtie2build_input, 2;
@@ -28,7 +28,7 @@ print "$BWAcommand\n";
 my$samtoolsCommand="samtools faidx ".$bowtie2build_input;
 print "$samtoolsCommand\n";
 `$samtoolsCommand`;
-my$picardDictCommand="java -jar /mnt/hgfs/Ubuntu_Shared/Optimization_Run1/Programs/Picard/Picard-2.8.2/picard-2.8.2.jar CreateSequenceDictionary REFERENCE=".$bowtie2build_input." OUTPUT=".$bowtie2build_inputFile.".dict";
+my$picardDictCommand="java -jar /mnt/hgfs/Ubuntu_Shared/OptimizationRun1/Programs/Picard/Picard-2.8.2/picard-2.8.2.jar CreateSequenceDictionary REFERENCE=".$bowtie2build_input." OUTPUT=".$bowtie2build_inputFile.".dict";
 print "$picardDictCommand\n";
 `$picardDictCommand`;
 
@@ -40,15 +40,15 @@ foreach my$i (0..$#samples){
 	print "$bt2Command\n";
 	`$bt2Command`;
 	#sort sam file using picard tools
-	my$picardCommand="java -jar /mnt/hgfs/Ubuntu_Shared/Optimization_Run1/Programs/Picard/Picard-2.8.2/picard-2.8.2.jar SortSam INPUT=".$ID.".sam OUTPUT=".$ID.".bam SORT_ORDER=coordinate VALIDATION_STRINGENCY=LENIENT CREATE_INDEX=true";
+	my$picardCommand="java -jar /mnt/hgfs/Ubuntu_Shared/OptimizationRun1/Programs/Picard/Picard-2.8.2/picard-2.8.2.jar SortSam INPUT=".$ID.".sam OUTPUT=".$ID.".bam SORT_ORDER=coordinate VALIDATION_STRINGENCY=LENIENT CREATE_INDEX=true";
 	print "$picardCommand\n";
 	`$picardCommand`;
 	#GATK target creator
-	my$GATKtargetCreatorCommand="java -jar /mnt/hgfs/Ubuntu_Shared/Optimization_Run1/Programs/GATK/GenomeAnalysisTK-3.7/GenomeAnalysisTK.jar -T RealignerTargetCreator -I ".$ID.".bam -R ".$bowtie2build_input." -o  ".$ID.".bam.list";
+	my$GATKtargetCreatorCommand="java -jar /mnt/hgfs/Ubuntu_Shared/OptimizationRun1/Programs/GATK/GenomeAnalysisTK-3.7/GenomeAnalysisTK.jar -T RealignerTargetCreator -I ".$ID.".bam -R ".$bowtie2build_input." -o  ".$ID.".bam.list";
 	print "$GATKtargetCreatorCommand\n";
 	`$GATKtargetCreatorCommand`;
 	#GATK Indel Realigner
-	my$GATKindelRealignerCommand="java -jar /mnt/hgfs/Ubuntu_Shared/Optimization_Run1/Programs/GATK/GenomeAnalysisTK-3.7/GenomeAnalysisTK.jar -T IndelRealigner -R ".$bowtie2build_input." -I ".$ID.".bam -targetIntervals ".$ID.".bam.list -o ".$ID.".realigned.bam";
+	my$GATKindelRealignerCommand="java -jar /mnt/hgfs/Ubuntu_Shared/OptimizationRun1/Programs/GATK/GenomeAnalysisTK-3.7/GenomeAnalysisTK.jar -T IndelRealigner -R ".$bowtie2build_input." -I ".$ID.".bam -targetIntervals ".$ID.".bam.list -o ".$ID.".realigned.bam";
 	print "$GATKindelRealignerCommand\n";
 	`$GATKindelRealignerCommand`;
 	##GATK Haplotype Caller
