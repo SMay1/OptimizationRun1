@@ -1,4 +1,11 @@
 #/usr/bin/perl -w
+##GATK Pipeline originally designed and coded by Garrett McKinney, edited by Sam May 10.20.2017. Aligns demultiplexed sequencing data to reference, searches for indels w/GATK, realigns
+##Pipeline takes a list of .fastq files (SampleFile) as the input. Also requires reference sequence of expected amplicons (line 13)
+##Script should be in the same directory as .fastq files
+##Need to edit Picard direcroty path (version 2.8.2, lines 38 and 50) and GATK directory path (version 3.7, lines 54, 58, and 62)
+##Requirements: bwa, java, samtools, bowtie2, perl, GATK (path required), Picard (path required)
+##Example code to run: !perl GATK_pipeline_SM.pl SampleFile.txt
+
 use strict;
 
 my$sampleFile=$ARGV[0];
