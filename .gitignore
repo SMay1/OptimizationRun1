@@ -36,3 +36,12 @@ Data/Process_RadTags_Output/Opt1_output.txt
 *.bam
 *.sam
 *.list
+*.bt2
+*.amb
+*.ann
+*.bwt
+Data/Trimmomatic_Out/GATKRefTrim.pac
+Data/Trimmomatic_Out/GATKRefTrim.sa
+Data/Trimmomatic_Out/233_Amplicons.fa.fai
+*.dict
+*.sai
