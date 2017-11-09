@@ -45,3 +45,5 @@ Data/Trimmomatic_Out/GATKRefTrim.sa
 Data/Trimmomatic_Out/233_Amplicons.fa.fai
 *.dict
 *.sai
+*.png
+*.genos
